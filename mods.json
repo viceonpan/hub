@@ -1,0 +1,22 @@
+[
+  {
+    "id": "mi-primer-mod",
+    "nombre": "Custom Difficulty Redirect",
+    "version": "v1.0.0",
+    "geode": "v5.11.2",
+    "descripcion": "Redirige dificultades personalizadas a un servidor privado.",
+    "github": "https://github.com/tu-usuario/tu-mod",
+    "descarga": "https://github.com/tu-usuario/tu-mod/releases/latest",
+    "tags": ["Geode", "C++", "GDPS"]
+  },
+  {
+    "id": "segundo-mod",
+    "nombre": "Editor Tweaks",
+    "version": "v1.2.1",
+    "geode": "v5.11.2",
+    "descripcion": "Atajos rápidos y mejoras visuales para el editor de niveles.",
+    "github": "https://github.com/tu-usuario/editor-tweaks",
+    "descarga": "https://github.com/tu-usuario/editor-tweaks/releases/latest",
+    "tags": ["Editor", "Utility"]
+  }
+]
