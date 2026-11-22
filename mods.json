@@ -1,22 +1,25 @@
 [
   {
-    "id": "mi-primer-mod",
-    "nombre": "Custom Difficulty Redirect",
-    "version": "v1.0.0",
+    "bg": "assets/bg.png",
+    "id": "fnf_jm",
+    "nombre": "FridayNightFunkin VS Julian Martinez",
+    "version": "v1.0.3",
     "geode": "v5.11.2",
-    "descripcion": "Redirige dificultades personalizadas a un servidor privado.",
+    "thumbnail": "assets/mod1-thumb.png",
+    "descripcion": "juega contra julian skidibi toilet (beta).",
     "github": "https://github.com/tu-usuario/tu-mod",
     "descarga": "https://github.com/tu-usuario/tu-mod/releases/latest",
-    "tags": ["Geode", "C++", "GDPS"]
+    "tags": ["FNF", "In Progress", "BETA"]
   },
   {
-    "id": "segundo-mod",
-    "nombre": "Editor Tweaks",
+    "id": "bodriolist",
+    "nombre": "Bodrio List Integration",
     "version": "v1.2.1",
     "geode": "v5.11.2",
-    "descripcion": "Atajos rápidos y mejoras visuales para el editor de niveles.",
+    "thumbnail": "assets/mod2-thumb.png",
+    "descripcion": "Integracion de la bodrio list a geode.",
     "github": "https://github.com/tu-usuario/editor-tweaks",
     "descarga": "https://github.com/tu-usuario/editor-tweaks/releases/latest",
-    "tags": ["Editor", "Utility"]
+    "tags": ["geometry dash", "geode"]
   }
 ]
