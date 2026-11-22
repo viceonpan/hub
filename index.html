@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mis Mods de GD</title>
+  <title>visho2019's mod hub</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="bg-layer" aria-hidden="true"></div>
+
   <header>
     <h1>MIS MODS</h1>
-    <p>Colección de mods y herramientas para Geometry Dash / Geode</p>
-    <input type="text" id="buscador" placeholder="Buscar mod por nombre o tag...">
+    <p>mod cool epico gracias gemini por crear la pagina ❤</p>
+    <input type="text" id="buscador" placeholder="Buscar mod por juego, nombre o tag...">
   </header>
 
   <main id="grid-mods"></main>
@@ -22,40 +24,73 @@
   <script>
     const grid = document.getElementById('grid-mods');
     const buscador = document.getElementById('buscador');
+    const bgLayer = document.getElementById('bg-layer');
     let todosLosMods = [];
 
     fetch('mods.json')
       .then(res => res.json())
       .then(data => {
         todosLosMods = data;
+        aplicarFondo(data);
         renderMods(todosLosMods);
       });
 
+    function aplicarFondo(data) {
+      const itemConBg = data.find(item => item.bg && item.bg.trim() !== '');
+      if (!itemConBg) return;
+
+      const valor = itemConBg.bg.trim();
+      if (valor.startsWith('#') || valor.startsWith('rgb') || valor.startsWith('linear-gradient')) {
+        bgLayer.style.background = valor;
+      } else {
+        bgLayer.style.backgroundImage = `url("${valor}")`;
+      }
+    }
+
     function renderMods(lista) {
-      grid.innerHTML = lista.map(mod => `
-        <article class="card">
-          <div class="card-header">
-            <h2>${mod.nombre}</h2>
-            <span class="badge">${mod.version}</span>
-          </div>
-          <p class="desc">${mod.descripcion}</p>
-          <div class="tags">
-            ${mod.tags.map(t => `<span class="tag">${t}</span>`).join('')}
-          </div>
-          <div class="actions">
-            <a href="${mod.descarga}" class="btn primary" target="_blank">Descargar</a>
-            <a href="${mod.github}" class="btn" target="_blank">Código</a>
-          </div>
-        </article>
-      `).join('');
+      grid.innerHTML = lista.map(mod => {
+        const tieneThumb = mod.thumbnail && mod.thumbnail.trim() !== '';
+        const thumbHtml = tieneThumb
+          ? `<img class="thumb" src="${mod.thumbnail}" alt="Thumbnail de ${mod.nombre}" loading="lazy" onerror="this.outerHTML='<div class=\\'thumb thumb-empty\\'>SIN THUMBNAIL</div>'">`
+          : `<div class="thumb thumb-empty">SIN THUMBNAIL</div>`;
+
+        const metaPartes = [];
+        if (mod.juego) metaPartes.push(mod.juego);
+        if (mod.geode) metaPartes.push(`Geode ${mod.geode}`);
+        const metaHtml = metaPartes.length
+          ? `<p class="meta">${metaPartes.join(' · ')}</p>`
+          : '';
+
+        return `
+          <article class="card">
+            <div>
+              ${thumbHtml}
+              <div class="card-header">
+                <h2>${mod.nombre}</h2>
+                <span class="badge">${mod.version}</span>
+              </div>
+              ${metaHtml}
+              <p class="desc">${mod.descripcion}</p>
+              <div class="tags">
+                ${(mod.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}
+              </div>
+            </div>
+            <div class="actions">
+              <a href="${mod.descarga}" class="btn primary" target="_blank">Descargar</a>
+              <a href="${mod.github}" class="btn" target="_blank">Código</a>
+            </div>
+          </article>
+        `;
+      }).join('');
     }
 
     buscador.addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase();
-      const filtrados = todosLosMods.filter(m => 
-        m.nombre.toLowerCase().includes(q) || 
-        m.descripcion.toLowerCase().includes(q) ||
-        m.tags.some(t => t.toLowerCase().includes(q))
+      const filtrados = todosLosMods.filter(m =>
+        (m.nombre && m.nombre.toLowerCase().includes(q)) ||
+        (m.juego && m.juego.toLowerCase().includes(q)) ||
+        (m.descripcion && m.descripcion.toLowerCase().includes(q)) ||
+        (m.tags && m.tags.some(t => t.toLowerCase().includes(q)))
       );
       renderMods(filtrados);
     });
