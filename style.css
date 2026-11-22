@@ -1,10 +1,10 @@
 :root {
   --bg: #121216;
-  --card: #1c1c24;
+  --card: rgba(28, 28, 36, 0.92);
   --border: #2e2e3a;
   --accent: #ffcc00;
   --text: #f0f0f5;
-  --muted: #9a9aa6;
+  --muted: #b0b0be;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -16,6 +16,24 @@ body {
   max-width: 960px;
   margin: 0 auto;
   padding: 2rem 1rem;
+  position: relative;
+  min-height: 100vh;
+}
+
+#bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#bg-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 12, 18, 0.72);
 }
 
 header {
@@ -71,6 +89,25 @@ header p {
   border-color: var(--accent);
 }
 
+.thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  border: 1px solid var(--border);
+  margin-bottom: 0.9rem;
+  background: #14141a;
+}
+
+.thumb-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+}
+
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -89,6 +126,7 @@ header p {
   font-size: 0.75rem;
   padding: 0.2rem 0.5rem;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .desc {
@@ -127,6 +165,7 @@ header p {
   font-weight: bold;
   border: 2px solid var(--border);
   color: var(--text);
+  background: rgba(20, 20, 26, 0.7);
 }
 
 .btn.primary {
